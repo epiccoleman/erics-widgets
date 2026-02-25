@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "erics-widgets:splitter",
-    "erics-widgets:valve"
+    "erics-widgets:splitter"
   ]
 }
