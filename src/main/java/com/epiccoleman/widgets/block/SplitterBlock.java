@@ -27,7 +27,7 @@ public class SplitterBlock extends DirectionalBlock implements EntityBlock {
 
     public SplitterBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class SplitterBlock extends DirectionalBlock implements EntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return defaultBlockState().setValue(FACING, ctx.getNearestLookingDirection().getOpposite());
+        return defaultBlockState().setValue(FACING, ctx.getClickedFace());
     }
 
     @Override

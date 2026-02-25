@@ -1,10 +1,10 @@
 {
   "variants": {
-    "facing=north": { "model": "erics-widgets:block/splitter" },
-    "facing=south": { "model": "erics-widgets:block/splitter", "y": 180 },
-    "facing=east": { "model": "erics-widgets:block/splitter", "y": 90 },
-    "facing=west": { "model": "erics-widgets:block/splitter", "y": 270 },
-    "facing=up": { "model": "erics-widgets:block/splitter", "x": 270 },
-    "facing=down": { "model": "erics-widgets:block/splitter", "x": 90 }
+    "facing=up": { "model": "erics-widgets:block/splitter" },
+    "facing=down": { "model": "erics-widgets:block/splitter", "x": 180 },
+    "facing=north": { "model": "erics-widgets:block/splitter", "x": 90 },
+    "facing=south": { "model": "erics-widgets:block/splitter", "x": 270 },
+    "facing=east": { "model": "erics-widgets:block/splitter", "x": 90, "y": 90 },
+    "facing=west": { "model": "erics-widgets:block/splitter", "x": 90, "y": 270 }
   }
 }

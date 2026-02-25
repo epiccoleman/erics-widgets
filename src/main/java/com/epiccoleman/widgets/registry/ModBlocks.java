@@ -20,6 +20,7 @@ public class ModBlocks {
             new SplitterBlock(BlockBehaviour.Properties.of()
                     .strength(3.5f)
                     .requiresCorrectToolForDrops()
+                    .noOcclusion()
                     .sound(SoundType.METAL))
     );
 
