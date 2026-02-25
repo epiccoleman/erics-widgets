@@ -28,8 +28,10 @@ import java.util.List;
 @SuppressWarnings("UnstableApiUsage")
 public class SplitterBlockEntity extends BlockEntity {
 
+    private static final int PULL_COOLDOWN_TICKS = 8;
     private final SingleVariantStorage<ItemVariant>[] outputSlots;
     private int roundRobinIndex = 0;
+    private int pullCooldown = 0;
 
     @SuppressWarnings("unchecked")
     public SplitterBlockEntity(BlockPos pos, BlockState state) {
@@ -120,6 +122,57 @@ public class SplitterBlockEntity extends BlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, SplitterBlockEntity be) {
         Direction inputDir = state.getValue(DirectionalBlock.FACING);
         Direction[] outputs = getOutputDirections(inputDir);
+
+        // Pull from input face (like a hopper, at hopper speed)
+        if (be.pullCooldown > 0) {
+            be.pullCooldown--;
+        }
+        BlockPos inputPos = pos.relative(inputDir);
+        Storage<ItemVariant> inputSource = be.pullCooldown <= 0 ? ItemStorage.SIDED.find(
+                level, inputPos, inputDir.getOpposite()
+        ) : null;
+        if (inputSource != null) {
+            // Find how many output slots with valid targets are available
+            int availableSlots = 0;
+            for (int i = 0; i < 4; i++) {
+                if (be.outputSlots[i].getAmount() <= 0 && be.hasTarget(outputs, i)) {
+                    availableSlots++;
+                }
+            }
+            if (availableSlots > 0) {
+                // Pull one item from the source
+                try (Transaction tx = Transaction.openOuter()) {
+                    ItemVariant extracted = null;
+                    for (StorageView<ItemVariant> view : inputSource) {
+                        if (view.isResourceBlank() || view.getAmount() <= 0) continue;
+                        extracted = view.getResource();
+                        break;
+                    }
+                    if (extracted != null) {
+                        long pulled = inputSource.extract(extracted, 1, tx);
+                        if (pulled > 0) {
+                            // Insert into the next available output slot via round-robin
+                            long distributed = 0;
+                            int startIndex = be.roundRobinIndex;
+                            for (int i = 0; i < 4; i++) {
+                                int idx = (startIndex + i) % 4;
+                                if (!be.hasTarget(outputs, idx)) continue;
+                                long inserted = be.outputSlots[idx].insert(extracted, pulled, tx);
+                                if (inserted > 0) {
+                                    distributed = inserted;
+                                    be.roundRobinIndex = (idx + 1) % 4;
+                                    break;
+                                }
+                            }
+                            if (distributed > 0) {
+                                tx.commit();
+                                be.pullCooldown = PULL_COOLDOWN_TICKS;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         for (int i = 0; i < 4; i++) {
             SingleVariantStorage<ItemVariant> slot = be.outputSlots[i];
