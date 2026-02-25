@@ -5,11 +5,11 @@ import com.epiccoleman.widgets.registry.ModBlockEntities;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.fabricmc.fabric.api.transfer.v1.storage.SlottedStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -103,19 +103,48 @@ public class SplitterBlockEntity extends BlockEntity {
         return -1;
     }
 
+    private static void pushSlot(SingleVariantStorage<ItemVariant> slot, Storage<ItemVariant> target) {
+        try (Transaction tx = Transaction.openOuter()) {
+            ItemVariant variant = slot.getResource();
+            long amount = slot.getAmount();
+            long inserted = target.insert(variant, amount, tx);
+            if (inserted > 0) {
+                long extracted = slot.extract(variant, inserted, tx);
+                if (extracted > 0) {
+                    tx.commit();
+                }
+            }
+        }
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, SplitterBlockEntity be) {
         Direction inputDir = state.getValue(DirectionalBlock.FACING);
         Direction[] outputs = getOutputDirections(inputDir);
 
         for (int i = 0; i < 4; i++) {
             SingleVariantStorage<ItemVariant> slot = be.outputSlots[i];
-            if (slot.getAmount() > 0) {
-                Direction outDir = outputs[i];
-                Storage<ItemVariant> target = ItemStorage.SIDED.find(
-                        level, pos.relative(outDir), outDir.getOpposite()
+            if (slot.isResourceBlank() || slot.getAmount() <= 0) continue;
+
+            // Try the slot's own output face first
+            Direction outDir = outputs[i];
+            Storage<ItemVariant> target = ItemStorage.SIDED.find(
+                    level, pos.relative(outDir), outDir.getOpposite()
+            );
+            if (target != null) {
+                pushSlot(slot, target);
+                continue;
+            }
+
+            // No target on this face - push to any other face that has one
+            for (int j = 0; j < 4; j++) {
+                if (j == i) continue;
+                Direction altDir = outputs[j];
+                Storage<ItemVariant> altTarget = ItemStorage.SIDED.find(
+                        level, pos.relative(altDir), altDir.getOpposite()
                 );
-                if (target != null) {
-                    StorageUtil.move(slot, target, v -> true, 1, null);
+                if (altTarget != null) {
+                    pushSlot(slot, altTarget);
+                    break;
                 }
             }
         }
@@ -151,19 +180,32 @@ public class SplitterBlockEntity extends BlockEntity {
     }
 
     /**
+     * Checks whether the given output slot index has a valid target inventory to push to.
+     */
+    private boolean hasTarget(Direction[] outputs, int slotIndex) {
+        if (level == null) return true;
+        Direction outDir = outputs[slotIndex];
+        return ItemStorage.SIDED.find(level, worldPosition.relative(outDir), outDir.getOpposite()) != null;
+    }
+
+    /**
      * Insert-only storage for the input face.
-     * Distributes items round-robin across the 4 output slots.
+     * Distributes items round-robin across output slots that have valid targets.
      */
     private class InputStorage implements Storage<ItemVariant> {
         @Override
         public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
             if (resource.isBlank()) return 0;
 
+            Direction inputDir = getBlockState().getValue(DirectionalBlock.FACING);
+            Direction[] outputs = getOutputDirections(inputDir);
+
             long totalInserted = 0;
             int startIndex = roundRobinIndex;
 
             for (int i = 0; i < 4 && totalInserted < maxAmount; i++) {
                 int idx = (startIndex + i) % 4;
+                if (!hasTarget(outputs, idx)) continue;
                 long inserted = outputSlots[idx].insert(resource, maxAmount - totalInserted, transaction);
                 totalInserted += inserted;
                 if (inserted > 0) {
