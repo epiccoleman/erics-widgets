@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IHI",
+    "HPH",
+    "HPH"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "H": { "item": "minecraft:hopper" },
+    "P": { "item": "minecraft:piston" }
+  },
+  "result": {
+    "id": "erics-widgets:splitter",
+    "count": 1
+  }
+}
