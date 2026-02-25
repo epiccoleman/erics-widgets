@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+DEST="/mnt/c/Users/Eric/AppData/Roaming/PrismLauncher/instances/Oritech Dev/minecraft/mods/"
+JAR="$(ls build/libs/erics-widgets-*.jar | grep -v sources)"
+
+rm -f "$DEST"/erics-widgets-*.jar
+cp "$JAR" "$DEST"
+echo "Deployed $(basename "$JAR") to $DEST"
