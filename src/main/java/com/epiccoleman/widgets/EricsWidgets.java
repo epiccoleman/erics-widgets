@@ -19,6 +19,10 @@ public class EricsWidgets implements ModInitializer {
 
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> {
 			content.accept(ModBlocks.SPLITTER_ITEM);
+			content.accept(ModBlocks.SPLITTER_3WAY_ITEM);
+			content.accept(ModBlocks.SPLITTER_2WAY_ITEM);
+			content.accept(ModBlocks.SPLITTER_INPUT_ITEM);
+			content.accept(ModBlocks.SPLITTER_OUTPUT_ITEM);
 		});
 
 		LOGGER.info("Eric's Widgets initialized!");

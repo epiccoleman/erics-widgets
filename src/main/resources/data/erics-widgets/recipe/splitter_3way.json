@@ -2,15 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " O ",
-    "OIO",
-    " O "
+    "OIO"
   ],
   "key": {
     "I": { "item": "erics-widgets:splitter_input" },
     "O": { "item": "erics-widgets:splitter_output" }
   },
   "result": {
-    "id": "erics-widgets:splitter",
+    "id": "erics-widgets:splitter_3way",
     "count": 1
   }
 }

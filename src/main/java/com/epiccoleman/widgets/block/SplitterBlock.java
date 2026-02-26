@@ -5,6 +5,7 @@ import com.epiccoleman.widgets.registry.ModBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -15,29 +16,54 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SplitterBlock extends DirectionalBlock implements EntityBlock {
 
-    public static final MapCodec<SplitterBlock> CODEC = simpleCodec(SplitterBlock::new);
+    public static final DirectionProperty ORIENTATION = DirectionProperty.create("orientation");
+
+    private final int outputCount;
+    private final MapCodec<SplitterBlock> codec;
 
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
+        return codec;
     }
 
-    public SplitterBlock(Properties properties) {
+    public SplitterBlock(Properties properties, int outputCount) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.UP));
+        this.outputCount = outputCount;
+        this.codec = simpleCodec(p -> new SplitterBlock(p, outputCount));
+        registerDefaultState(stateDefinition.any()
+                .setValue(FACING, Direction.UP)
+                .setValue(ORIENTATION, Direction.NORTH));
+    }
+
+    public int getOutputCount() {
+        return outputCount;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, ORIENTATION);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return defaultBlockState().setValue(FACING, ctx.getClickedFace());
+        Direction facing = ctx.getClickedFace();
+        Direction orientation = Direction.NORTH; // default
+        for (Direction dir : ctx.getNearestLookingDirections()) {
+            if (dir.getAxis() != facing.getAxis()) {
+                orientation = dir;
+                break;
+            }
+        }
+        return defaultBlockState()
+                .setValue(FACING, facing)
+                .setValue(ORIENTATION, orientation);
     }
 
     @Override
@@ -52,5 +78,48 @@ public class SplitterBlock extends DirectionalBlock implements EntityBlock {
         @SuppressWarnings("unchecked")
         BlockEntityTicker<T> ticker = (BlockEntityTicker<T>) (BlockEntityTicker<SplitterBlockEntity>) SplitterBlockEntity::serverTick;
         return ticker;
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof SplitterBlockEntity splitterBe) {
+                splitterBe.dropItems(level, pos);
+            }
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    /**
+     * Returns the output directions for a splitter given its input direction, orientation, and output count.
+     */
+    public static List<Direction> getOutputDirections(Direction inputDir, Direction orientation, int outputCount) {
+        List<Direction> all = new ArrayList<>();
+        for (Direction d : Direction.values()) {
+            if (d != inputDir && d != inputDir.getOpposite()) {
+                all.add(d);
+            }
+        }
+        // all now has the 4 perpendicular directions
+
+        if (outputCount == 4) {
+            return all;
+        }
+
+        if (outputCount == 3) {
+            // Exclude opposite of orientation
+            all.remove(orientation.getOpposite());
+            return all;
+        }
+
+        if (outputCount == 2) {
+            // Exclude both orientation and its opposite
+            all.remove(orientation);
+            all.remove(orientation.getOpposite());
+            return all;
+        }
+
+        return all;
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IHI",
+    "PCP",
+    "IRI"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "H": { "item": "minecraft:hopper" },
+    "P": { "item": "minecraft:piston" },
+    "C": { "item": "minecraft:clock" },
+    "R": { "item": "minecraft:redstone" }
+  },
+  "result": {
+    "id": "erics-widgets:splitter_input",
+    "count": 1
+  }
+}

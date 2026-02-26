@@ -1,0 +1,40 @@
+{
+  "multipart": [
+    { "when": { "facing": "up" },    "apply": { "model": "erics-widgets:block/splitter" } },
+    { "when": { "facing": "down" },  "apply": { "model": "erics-widgets:block/splitter", "x": 180 } },
+    { "when": { "facing": "north" }, "apply": { "model": "erics-widgets:block/splitter", "x": 90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "erics-widgets:block/splitter", "x": 270 } },
+    { "when": { "facing": "east" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 90 } },
+    { "when": { "facing": "west" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 270 } },
+
+    { "when": { "facing": "up", "orientation": "north|east|west" },   "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "up", "orientation": "south|east|west" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "up", "orientation": "north|south|east" },  "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "up", "orientation": "north|south|west" },  "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+
+    { "when": { "facing": "down", "orientation": "north|east|west" },   "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "down", "orientation": "south|east|west" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "down", "orientation": "north|south|east" },  "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "down", "orientation": "north|south|west" },  "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+
+    { "when": { "facing": "north", "orientation": "east|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "north", "orientation": "west|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+    { "when": { "facing": "north", "orientation": "east|west|up" },    "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "north", "orientation": "east|west|down" },  "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "south", "orientation": "east|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "south", "orientation": "west|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+    { "when": { "facing": "south", "orientation": "east|west|up" },    "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "south", "orientation": "east|west|down" },  "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "east", "orientation": "north|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "east", "orientation": "south|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "east", "orientation": "north|south|up" },   "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "east", "orientation": "north|south|down" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "west", "orientation": "north|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "west", "orientation": "south|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "west", "orientation": "north|south|up" },   "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "west", "orientation": "north|south|down" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } }
+  ]
+}

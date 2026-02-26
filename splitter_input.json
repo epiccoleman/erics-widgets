@@ -1,10 +1,10 @@
 {
+	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/block",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "erics-widgets:block/splitter_input",
-		"particle": "erics-widgets:block/splitter_input"
+		"0": "block/texture",
+		"particle": "block/texture"
 	},
 	"elements": [
 		{

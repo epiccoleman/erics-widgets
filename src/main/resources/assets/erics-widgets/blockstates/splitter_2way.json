@@ -1,0 +1,40 @@
+{
+  "multipart": [
+    { "when": { "facing": "up" },    "apply": { "model": "erics-widgets:block/splitter" } },
+    { "when": { "facing": "down" },  "apply": { "model": "erics-widgets:block/splitter", "x": 180 } },
+    { "when": { "facing": "north" }, "apply": { "model": "erics-widgets:block/splitter", "x": 90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "erics-widgets:block/splitter", "x": 270 } },
+    { "when": { "facing": "east" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 90 } },
+    { "when": { "facing": "west" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 270 } },
+
+    { "when": { "facing": "up", "orientation": "east|west" },  "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "up", "orientation": "east|west" },  "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "up", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "up", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+
+    { "when": { "facing": "down", "orientation": "east|west" },  "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "down", "orientation": "east|west" },  "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "down", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "down", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+
+    { "when": { "facing": "north", "orientation": "up|down" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "north", "orientation": "up|down" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+    { "when": { "facing": "north", "orientation": "east|west" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "north", "orientation": "east|west" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "south", "orientation": "up|down" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 90 } },
+    { "when": { "facing": "south", "orientation": "up|down" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 270 } },
+    { "when": { "facing": "south", "orientation": "east|west" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "south", "orientation": "east|west" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "east", "orientation": "up|down" },    "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "east", "orientation": "up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "east", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "east", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "west", "orientation": "up|down" },    "apply": { "model": "erics-widgets:block/splitter_output" } },
+    { "when": { "facing": "west", "orientation": "up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
+    { "when": { "facing": "west", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
+    { "when": { "facing": "west", "orientation": "north|south" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } }
+  ]
+}

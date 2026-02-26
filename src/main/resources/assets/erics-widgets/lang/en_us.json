@@ -1,3 +1,7 @@
 {
-  "block.erics-widgets.splitter": "Item Splitter"
+  "block.erics-widgets.splitter": "Item Splitter",
+  "block.erics-widgets.splitter_3way": "3-Way Item Splitter",
+  "block.erics-widgets.splitter_2way": "2-Way Item Splitter",
+  "item.erics-widgets.splitter_input": "Splitter Input",
+  "item.erics-widgets.splitter_output": "Splitter Output"
 }

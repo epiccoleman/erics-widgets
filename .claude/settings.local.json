@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(tail:*)",
-      "Bash(./scripts/deploy-to-instance:*)"
+      "Bash(./scripts/deploy-to-instance:*)",
+      "Bash(/home/eric/code/widgets/scripts/deploy-to-instance:*)"
     ]
   }
 }

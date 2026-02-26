@@ -14,7 +14,9 @@ public class ModBlockEntities {
     public static final BlockEntityType<SplitterBlockEntity> SPLITTER = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE,
             ResourceLocation.fromNamespaceAndPath(EricsWidgets.MOD_ID, "splitter"),
-            BlockEntityType.Builder.of(SplitterBlockEntity::new, ModBlocks.SPLITTER).build(null)
+            BlockEntityType.Builder.of(SplitterBlockEntity::new,
+                    ModBlocks.SPLITTER, ModBlocks.SPLITTER_3WAY, ModBlocks.SPLITTER_2WAY
+            ).build(null)
     );
 
     public static void register() {
