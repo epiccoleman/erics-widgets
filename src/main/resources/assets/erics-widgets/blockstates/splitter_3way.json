@@ -1,11 +1,11 @@
 {
   "multipart": [
-    { "when": { "facing": "up" },    "apply": { "model": "erics-widgets:block/splitter" } },
-    { "when": { "facing": "down" },  "apply": { "model": "erics-widgets:block/splitter", "x": 180 } },
-    { "when": { "facing": "north" }, "apply": { "model": "erics-widgets:block/splitter", "x": 90 } },
-    { "when": { "facing": "south" }, "apply": { "model": "erics-widgets:block/splitter", "x": 270 } },
-    { "when": { "facing": "east" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 90 } },
-    { "when": { "facing": "west" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 270 } },
+    { "when": { "facing": "up" },    "apply": { "model": "erics-widgets:block/splitter_input" } },
+    { "when": { "facing": "down" },  "apply": { "model": "erics-widgets:block/splitter_input", "x": 180 } },
+    { "when": { "facing": "north" }, "apply": { "model": "erics-widgets:block/splitter_input", "x": 90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "erics-widgets:block/splitter_input", "x": 270 } },
+    { "when": { "facing": "east" },  "apply": { "model": "erics-widgets:block/splitter_input", "x": 90, "y": 90 } },
+    { "when": { "facing": "west" },  "apply": { "model": "erics-widgets:block/splitter_input", "x": 90, "y": 270 } },
 
     { "when": { "facing": "up", "orientation": "north|east|west" },   "apply": { "model": "erics-widgets:block/splitter_output" } },
     { "when": { "facing": "up", "orientation": "south|east|west" },   "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
@@ -35,6 +35,36 @@
     { "when": { "facing": "west", "orientation": "north|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output" } },
     { "when": { "facing": "west", "orientation": "south|up|down" },    "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
     { "when": { "facing": "west", "orientation": "north|south|up" },   "apply": { "model": "erics-widgets:block/splitter_output", "x": 270 } },
-    { "when": { "facing": "west", "orientation": "north|south|down" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } }
+    { "when": { "facing": "west", "orientation": "north|south|down" }, "apply": { "model": "erics-widgets:block/splitter_output", "x": 90 } },
+
+    { "when": { "facing": "up", "orientation": "south" },   "apply": { "model": "erics-widgets:block/splitter_nub" } },
+    { "when": { "facing": "up", "orientation": "north" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 180 } },
+    { "when": { "facing": "up", "orientation": "west" },    "apply": { "model": "erics-widgets:block/splitter_nub", "y": 90 } },
+    { "when": { "facing": "up", "orientation": "east" },    "apply": { "model": "erics-widgets:block/splitter_nub", "y": 270 } },
+
+    { "when": { "facing": "down", "orientation": "south" },   "apply": { "model": "erics-widgets:block/splitter_nub" } },
+    { "when": { "facing": "down", "orientation": "north" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 180 } },
+    { "when": { "facing": "down", "orientation": "west" },    "apply": { "model": "erics-widgets:block/splitter_nub", "y": 90 } },
+    { "when": { "facing": "down", "orientation": "east" },    "apply": { "model": "erics-widgets:block/splitter_nub", "y": 270 } },
+
+    { "when": { "facing": "north", "orientation": "west" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 90 } },
+    { "when": { "facing": "north", "orientation": "east" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 270 } },
+    { "when": { "facing": "north", "orientation": "down" },   "apply": { "model": "erics-widgets:block/splitter_nub", "x": 270 } },
+    { "when": { "facing": "north", "orientation": "up" },     "apply": { "model": "erics-widgets:block/splitter_nub", "x": 90 } },
+
+    { "when": { "facing": "south", "orientation": "west" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 90 } },
+    { "when": { "facing": "south", "orientation": "east" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 270 } },
+    { "when": { "facing": "south", "orientation": "down" },   "apply": { "model": "erics-widgets:block/splitter_nub", "x": 270 } },
+    { "when": { "facing": "south", "orientation": "up" },     "apply": { "model": "erics-widgets:block/splitter_nub", "x": 90 } },
+
+    { "when": { "facing": "east", "orientation": "south" },   "apply": { "model": "erics-widgets:block/splitter_nub" } },
+    { "when": { "facing": "east", "orientation": "north" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 180 } },
+    { "when": { "facing": "east", "orientation": "down" },    "apply": { "model": "erics-widgets:block/splitter_nub", "x": 270 } },
+    { "when": { "facing": "east", "orientation": "up" },      "apply": { "model": "erics-widgets:block/splitter_nub", "x": 90 } },
+
+    { "when": { "facing": "west", "orientation": "south" },   "apply": { "model": "erics-widgets:block/splitter_nub" } },
+    { "when": { "facing": "west", "orientation": "north" },   "apply": { "model": "erics-widgets:block/splitter_nub", "y": 180 } },
+    { "when": { "facing": "west", "orientation": "down" },    "apply": { "model": "erics-widgets:block/splitter_nub", "x": 270 } },
+    { "when": { "facing": "west", "orientation": "up" },      "apply": { "model": "erics-widgets:block/splitter_nub", "x": 90 } }
   ]
 }

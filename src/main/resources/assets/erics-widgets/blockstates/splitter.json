@@ -1,11 +1,11 @@
 {
   "multipart": [
-    { "when": { "facing": "up" },    "apply": { "model": "erics-widgets:block/splitter" } },
-    { "when": { "facing": "down" },  "apply": { "model": "erics-widgets:block/splitter", "x": 180 } },
-    { "when": { "facing": "north" }, "apply": { "model": "erics-widgets:block/splitter", "x": 90 } },
-    { "when": { "facing": "south" }, "apply": { "model": "erics-widgets:block/splitter", "x": 270 } },
-    { "when": { "facing": "east" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 90 } },
-    { "when": { "facing": "west" },  "apply": { "model": "erics-widgets:block/splitter", "x": 90, "y": 270 } },
+    { "when": { "facing": "up" },    "apply": { "model": "erics-widgets:block/splitter_input" } },
+    { "when": { "facing": "down" },  "apply": { "model": "erics-widgets:block/splitter_input", "x": 180 } },
+    { "when": { "facing": "north" }, "apply": { "model": "erics-widgets:block/splitter_input", "x": 90 } },
+    { "when": { "facing": "south" }, "apply": { "model": "erics-widgets:block/splitter_input", "x": 270 } },
+    { "when": { "facing": "east" },  "apply": { "model": "erics-widgets:block/splitter_input", "x": 90, "y": 90 } },
+    { "when": { "facing": "west" },  "apply": { "model": "erics-widgets:block/splitter_input", "x": 90, "y": 270 } },
 
     { "when": { "facing": "up" }, "apply": { "model": "erics-widgets:block/splitter_output" } },
     { "when": { "facing": "up" }, "apply": { "model": "erics-widgets:block/splitter_output", "y": 180 } },
