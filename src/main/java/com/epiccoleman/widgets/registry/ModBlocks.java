@@ -14,8 +14,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public class ModBlocks {
 
     private static final BlockBehaviour.Properties SPLITTER_PROPS = BlockBehaviour.Properties.of()
-            .strength(3.5f)
-            .requiresCorrectToolForDrops()
+            .strength(3.0f, 4.8f)
             .noOcclusion()
             .sound(SoundType.METAL);
 
